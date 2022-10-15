@@ -33,7 +33,7 @@ const sendEmail = async (sourceEmail,content , payload) => {
     const info = await transporter.sendMail({
       from: `Praveen Kumar <${user}>`,
       to: sourceEmail,
-      subject: payload?.subject,
+      subject: payload.subject,
       html: htmlToSend,
     });
     // console.log(info);

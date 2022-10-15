@@ -5,8 +5,8 @@ const mailSender = async (req, res) => {
   try {
     const content = req.body.content
     console.log(req.file, req.body);
-    const fileArray = req.file?.originalname.split(".");
-    if (fileArray?.length && fileArray[fileArray.length - 1] === "csv") {
+    const fileArray = req.file.originalname.split(".");
+    if (fileArray.length && fileArray[fileArray.length - 1] === "csv") {
       const rowData = fs.readFileSync(
         `./uploads/${req.file.filename}`,
         "utf-8"
@@ -14,7 +14,7 @@ const mailSender = async (req, res) => {
       const jsonArray = await csv().fromString(rowData);
       console.log(jsonArray);
       jsonArray.forEach(data => {
-        sendEmail(data?.email, content, {name:data?.fname, subject:'Test Mail'})
+        sendEmail(data.email, content, {name:data.fname, subject:'Test Mail'})
       });
       fs.unlink(`./uploads/${req.file.filename}`, (err)=>{
         console.log(err);
